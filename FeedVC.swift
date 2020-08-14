@@ -1,10 +1,3 @@
-//
-//  FeedVC.swift
-//  BeirutTrackingApp
-//
-//  Created by SPEAKFLUENCE GLOBAL on 13/08/2020.
-//  Copyright © 2020 Maya Bridgman. All rights reserved.
-//
 
 
 import UIKit
@@ -13,12 +6,12 @@ import FirebaseDatabase
 import SwiftKeychainWrapper
 import FirebaseAuth
 
-class FeedVC: UITableViewController {
+class FeedVC: UITableViewController{
     
     var currentUserImageUrl: String!
     var posts = [postStruct]()
     var selectedPost: Post!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         getUsersData()
@@ -55,9 +48,7 @@ class FeedVC: UITableViewController {
                     let firstName = (snapshot.value as? NSDictionary)!["profileForename"] as? String
                     let lastName = (snapshot.value as? NSDictionary
                         )!["profileSurname"] as? String
-                    print(firstName)
                     self.posts.append(postStruct(firstName: firstName, lastName: lastName))
-                    print(self.posts)
                     DispatchQueue.main.async {
                         self.tableView.reloadData()
                     }
@@ -72,16 +63,12 @@ class FeedVC: UITableViewController {
         return posts.count
     }
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
+   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "PostCell") as? PostCell else { return UITableViewCell() }
-        
-        let nameLabel = cell.viewWithTag(1) as? UILabel
-        nameLabel?.text = posts[indexPath.row].firstName
+        cell.firstNameLabel?.text = posts[indexPath.row].firstName
+        print(posts[indexPath.row].firstName)
         return cell
     }
-
-
-
 }
+
 
